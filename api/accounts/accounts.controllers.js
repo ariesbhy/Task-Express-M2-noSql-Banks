@@ -6,18 +6,16 @@ exports.accountCreate = async (req, res) => {
   try {
     const id = accounts[accounts.length - 1].id + 1;
     const accountInfo = { ...req.body, funds: 0, id };
-    const newAccount = await AccountsSchema.create(accountInfo)
-    return res.status(201).json({data: newAccount});
-  } catch (error);
-  return response.status(500).json({error: error})
+    const newAccount = await AccountsSchema.create(accountInfo);
+    return res.status(201).json({ data: newAccount });
+  } catch (error) {
+    return response.status(500).json({ error: error });
+  }
 };
 
-exports.accountDelete = async (req, res) => {
-  try {
-
-  }
+exports.accountDelete = (req, res) => {
   const { accountId } = req.params;
-  const foundAccount = accounts.find((account) => account.id === +accountId);
+  const foundAccount = accounts.find((account) => account.id == +accountId);
   if (foundAccount) {
     accounts = accounts.filter((account) => account.id !== +accountId);
     res.status(204).end();
