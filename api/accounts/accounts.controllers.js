@@ -1,5 +1,5 @@
 const { response } = require("express");
-let accounts = require("../../accounts");
+let accounts = require("../../data");
 const AccountsSchema = require("../../models/AccountsSchema");
 
 exports.accountCreate = async (req, res) => {
@@ -35,8 +35,14 @@ exports.accountUpdate = (req, res) => {
   }
 };
 
-exports.accountsGet = (req, res) => {
-  res.json(accounts);
+exports.accountsGet = async (req, res) => {
+  try {
+    const accounts = await AccountsSchema.find();
+    return res.status(200).json({ data: accounts });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: error });
+  }
 };
 
 exports.getAccountByUsername = (req, res) => {

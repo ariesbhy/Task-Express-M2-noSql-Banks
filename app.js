@@ -1,4 +1,4 @@
-let accounts = require("./accounts");
+let accounts = require("./data");
 const express = require("express");
 const app = express();
 const accountsRoutes = require("./api/accounts/accounts.routes");
@@ -11,6 +11,6 @@ app.use(express.json());
 connectDB();
 app.use("/accounts", accountsRoutes);
 
-app.listen(8000, () => {
-  console.log("The application is running on localhost:8000");
+app.listen(PORT, () => {
+  console.log(`The application is running on PORT ${PORT}`);
 });
